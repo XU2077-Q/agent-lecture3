@@ -1,0 +1,8 @@
+# 微信/飞书机器人共用
+requests>=2.31
+# 微信端：生成登录二维码图片
+qrcode[pil]>=7.4
+# 飞书端：官方 SDK（长连接收事件）
+lark-oapi>=1.4
+# 仅生成 Word 文档用（gen_docs.py），跑机器人不需要
+python-docx>=1.1
