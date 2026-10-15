@@ -7,13 +7,29 @@
 密钥三选一（优先级从高到低）：
     1. 环境变量 LLM_KEY
     2. 当前目录 llm_key.txt（已在 .gitignore 中，绝不提交）
+
+服务商与模型同理：环境变量 LLM_BASE / LLM_MODEL 优先，
+其次读 llm_base.txt / llm_model.txt，最后回落到默认值。
 """
 import os
 
 import requests
 
-LLM_BASE = os.environ.get("LLM_BASE", "https://api.openai.com/v1")
-LLM_MODEL = os.environ.get("LLM_MODEL", "gpt-4o-mini")
+
+def _conf(env_name, file_name, default):
+    val = os.environ.get(env_name)
+    if val:
+        return val.strip()
+    if os.path.exists(file_name):
+        with open(file_name, encoding="utf-8") as f:
+            val = f.read().strip()
+            if val:
+                return val
+    return default
+
+
+LLM_BASE = _conf("LLM_BASE", "llm_base.txt", "https://api.openai.com/v1")
+LLM_MODEL = _conf("LLM_MODEL", "llm_model.txt", "gpt-4o-mini")
 
 # 默认人设：system 角色消息，决定机器人“是谁、怎么说话”
 DEFAULT_SYSTEM = "你是一个乐于助人的中文智能助手，回答简洁友好。"

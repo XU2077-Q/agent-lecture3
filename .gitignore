@@ -1,5 +1,7 @@
 # 密钥与登录态——绝不提交
 llm_key.txt
+llm_base.txt
+llm_model.txt
 wx_token.txt
 qr_content.txt
 qr_wechat.png

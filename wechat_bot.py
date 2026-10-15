@@ -25,8 +25,15 @@
 import base64
 import json
 import random
+import sys
 import time
 import uuid
+
+# Windows 终端默认 GBK，打印 emoji 会 UnicodeEncodeError；改成容错输出
+try:
+    sys.stdout.reconfigure(errors="replace")
+except Exception:
+    pass
 
 import qrcode
 import requests
